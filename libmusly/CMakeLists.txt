@@ -16,11 +16,6 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/external")
         PROPERTIES COMPILE_FLAGS "-DLIBMUSLY_EXTERNAL ${LIBMUSLY_EXTERNAL_FLAGS}")
 endif()
 
-if(EXISTS "${LIBAV_INCLUDE_DIRS}/libavutil/channel_layout.h")
-    set_source_files_properties(decoders/libav.cpp
-        PROPERTIES COMPILE_FLAGS "-DHAVE_AVUTIL_CHANNEL_LAYOUT")
-endif()
-
 if(USE_OPENMP AND OPENMP_FOUND)
     # disable OpenMP for kiss FFT, it slows things down terribly
     set_source_files_properties(kissfft/kiss_fft.c
