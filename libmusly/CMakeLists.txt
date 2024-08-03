@@ -4,9 +4,6 @@
 # (c) 2013-2014, Dominik Schnitzer <dominik@schnitzer.at>
 #     2014-2016, Jan Schlueter <jan.schlueter@ofai.at>
 
-add_subdirectory(
-    libresample)
-
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/external")
     add_subdirectory(
         external)
@@ -24,8 +21,6 @@ endif()
 
 include_directories(
     ${LIBMUSLY_INCLUDE}
-    ${EIGEN3_INCLUDE_DIR}
-    ${LIBAV_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_library(libmusly
@@ -60,7 +55,8 @@ set_target_properties(libmusly
 
 target_link_libraries(libmusly
     ${LIBMUSLY_LIBS}
-    ${LIBAV_LIBRARIES})
+    PkgConfig::EIGEN3
+    PkgConfig::FFMPEG)
 if(WIN32 OR MINGW)
     # link against winsock2 for ntohl() and htonl()
     target_link_libraries(libmusly ws2_32)
@@ -69,5 +65,4 @@ endif()
 set_target_properties(libmusly
     PROPERTIES PREFIX "")
 
-install(TARGETS libmusly
-    DESTINATION lib)
+install(TARGETS libmusly)
