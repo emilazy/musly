@@ -13,19 +13,11 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/external")
         PROPERTIES COMPILE_FLAGS "-DLIBMUSLY_EXTERNAL ${LIBMUSLY_EXTERNAL_FLAGS}")
 endif()
 
-if(USE_OPENMP AND OPENMP_FOUND)
-    # disable OpenMP for kiss FFT, it slows things down terribly
-    set_source_files_properties(kissfft/kiss_fft.c
-        PROPERTIES COMPILE_FLAGS "-U_OPENMP")
-endif()
-
 include_directories(
     ${LIBMUSLY_INCLUDE}
     ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_library(libmusly
-    kissfft/kiss_fft.c
-    kissfft/kiss_fftr.c
     methods/mandelellis.cpp
     methods/timbre.cpp
     decoders/libav.cpp
@@ -56,7 +48,9 @@ set_target_properties(libmusly
 target_link_libraries(libmusly
     ${LIBMUSLY_LIBS}
     PkgConfig::EIGEN3
-    PkgConfig::FFMPEG)
+    PkgConfig::FFMPEG
+    PkgConfig::LIBRESAMPLE
+    PkgConfig::KISSFFT)
 if(WIN32 OR MINGW)
     # link against winsock2 for ntohl() and htonl()
     target_link_libraries(libmusly ws2_32)

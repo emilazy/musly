@@ -60,6 +60,18 @@ pkg_check_modules(FFMPEG REQUIRED IMPORTED_TARGET
     libavcodec
     libavformat
     libavutil)
+pkg_check_modules(LIBRESAMPLE REQUIRED IMPORTED_TARGET libresample)
+pkg_search_module(KISSFFT REQUIRED IMPORTED_TARGET
+    kissfft-simd
+    kissfft-double
+    kissfft-float
+    kissfft-int32_t
+    kissfft-int16_t
+    kissfft-simd-openmp
+    kissfft-double-openmp
+    kissfft-float-openmp
+    kissfft-int32_t-openmp
+    kissfft-int16_t-openmp)
 
 include_directories(
     "${PROJECT_SOURCE_DIR}/include")

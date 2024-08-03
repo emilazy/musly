@@ -31,3 +31,5 @@ addons:
             - libavcodec-dev
             - libavformat-dev
             - libavutil-dev
+            - libresample-dev
+            - libkissfft-dev
